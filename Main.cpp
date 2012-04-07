@@ -33,6 +33,9 @@ bool Main::init() {
 
 	camera = smgr->addCameraSceneNodeFPS();
 
+	HumanRacer r;
+	r.create(device, 512.f,512.f,0.f);
+
 	return true;
 }
 

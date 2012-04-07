@@ -11,7 +11,7 @@ public:
 	void createScene(IrrlichtDevice* device);
 
 	core::stringc plane_textures[4];
-	core::stringc skybox_textures[6];
+	core::stringc skybox_textures[5]; // bottom, left, right, front, back
 	int startpositions[8][2];
 };
 

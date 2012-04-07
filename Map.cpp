@@ -6,8 +6,8 @@ bool Map::load(core::stringc name) {
 	plane_textures[2] = name + "/pl2.png";
 	plane_textures[3] = name + "/pl3.png";
 
-	skybox_textures[1] = name + "/sbbottom.png";
-	for(int i = 2; i <= 5; i++) {
+	skybox_textures[0] = name + "/sbbottom.png";
+	for(int i = 1; i <= 4; i++) {
 		skybox_textures[i] = name + "/sbside.png";
 	}
 
@@ -36,13 +36,12 @@ void Map::createScene(IrrlichtDevice* device) {
 	cube[3]->setPosition(core::vector3df(768.f, -0.5f, 256.f));
 
 	// Create skybox
-	scene::ISceneNode* skybox = smgr->addSkyBoxSceneNode(
+	scene::ISceneNode* skybox = smgr->addSkyBoxSceneNode(0,
 		driver->getTexture(skybox_textures[0]),
 		driver->getTexture(skybox_textures[1]),
 		driver->getTexture(skybox_textures[2]),
 		driver->getTexture(skybox_textures[3]),
-		driver->getTexture(skybox_textures[4]),
-		driver->getTexture(skybox_textures[5])
+		driver->getTexture(skybox_textures[4])
 	);
 	skybox->setMaterialFlag(video::EMF_BILINEAR_FILTER, false);
 }
