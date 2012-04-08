@@ -9,15 +9,18 @@ using namespace irr;
 #include "Racer.hpp"
 #include "HumanRacer.hpp"
 
-class Main {
+class Main : public IEventReceiver {
 public:
 	Main();
 	int run();
+	bool OnEvent(const SEvent& event);
+	bool isKeyDown(EKEY_CODE k);
 private:
 	bool init();
 	void loop();
 
 	int WIDTH, HEIGHT;
+	bool keystate[KEY_KEY_CODES_COUNT];
 
 	IrrlichtDevice* device;
 	video::IVideoDriver* driver;

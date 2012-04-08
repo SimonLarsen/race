@@ -1,23 +1,41 @@
 #include "Main.hpp"
 
 Main::Main() {
+	// TODO: Load from lua file
 	WIDTH = 1024;
 	HEIGHT = 768;
+	// reset all keystates
+	for(int i = 0; i < KEY_KEY_CODES_COUNT; i++) {
+		keystate[i] = false;
+	}
 }
 
 void Main::loop() {
+	u32 lastTime = device->getTimer()->getTime();
+
+	HumanRacer pl;
+	pl.create(device, 584.f,1024-110.f,0.f);
+
 	while(device->run()) {
+		const u32 now = device->getTimer()->getTime();
+		const f32 dt = (f32)(now-lastTime) / 100.f;
+		lastTime = now;
+
+		pl.update(keystate,dt);
+
 		driver->beginScene();
-		driver->setRenderTarget(rt);
-		smgr->drawAll();
-		driver->setRenderTarget(0);
-		driver->draw2DImage(rt, core::recti(0,0,WIDTH,HEIGHT), core::recti(0,0,256,256));
+			driver->setRenderTarget(rt);
+			smgr->drawAll();
+			driver->setRenderTarget(0);
+			driver->draw2DImage(rt, core::recti(0,0,WIDTH,HEIGHT), core::recti(0,0,256,256));
+
 		driver->endScene();
 	}
 }
 
 bool Main::init() {
 	device = createDevice(video::EDT_OPENGL, core::dimension2du(WIDTH,HEIGHT));
+	device->setEventReceiver(this);
 	device->setWindowCaption(L"Race!");
 	if(device == NULL)
 		return false;
@@ -32,11 +50,20 @@ bool Main::init() {
 	map.createScene(device);
 
 	camera = smgr->addCameraSceneNodeFPS();
-
-	HumanRacer r;
-	r.create(device, 512.f,512.f,0.f);
+	camera->setPosition(core::vector3df(512.f,10.f,512.f));
 
 	return true;
+}
+
+bool Main::OnEvent(const SEvent& event) {
+	if(event.EventType == EET_KEY_INPUT_EVENT) {
+		keystate[event.KeyInput.Key] = event.KeyInput.PressedDown;
+	}
+	return false;
+}
+
+bool Main::isKeyDown(EKEY_CODE k) {
+	return keystate[k];
 }
 
 int Main::run() {

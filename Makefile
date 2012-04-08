@@ -5,17 +5,13 @@ OBJECTS=Main.o Map.o Racer.o HumanRacer.o
 race: $(OBJECTS)
 	$(GXX) $(OBJECTS) $(LDLIBS) -o race
 
-Main.o: Main.cpp Main.hpp Map.hpp
-	$(GXX) -c Main.cpp
+Main.cpp: Main.hpp Map.hpp
 
-Map.o: Map.cpp Map.hpp
-	$(GXX) -c Map.cpp
+Map.cpp: Map.hpp
 
-Racer.o: Racer.hpp Racer.cpp
-	$(GXX) -c Racer.cpp
+Racer.cpp: Racer.hpp
 
-HumanRacer.o: HumanRacer.hpp HumanRacer.cpp Racer.hpp
-	$(GXX) -c HumanRacer.cpp
+HumanRacer.cpp: HumanRacer.hpp Racer.hpp
 
 .PHONY: clean
 clean:
