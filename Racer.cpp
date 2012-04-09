@@ -5,13 +5,13 @@ scene::ISceneNode* Racer::create(IrrlichtDevice* device, f32 _x, f32 _z, f32 _di
 	pos.Y = 4.f;
 	pos.Z = _z;
 	dir = _dir;
-	turndir = speed = 0.f;
+	i_acc = i_turn = 0.f;
+	speed = xforce = zforce = 0.f;
 	isSolid = true;
 
 	// TODO: Read these from different characters
-	S_TURNSPEED = 0.4f;
-	S_MAXTURN = 0.26f;
-	S_ACCELERATION = 0.6f;
+	S_TURNSPEED = 0.2f;
+	S_ACCELERATION = 0.9f;
 	S_TOPSPEED = 20.f;
 
 	scene::ISceneManager* smgr = device->getSceneManager();
@@ -30,25 +30,15 @@ void Racer::update(bool* keystates, f32 dt) {
 }
 
 void Racer::updateLogic(f32 dt) {
-	if(i_acc != 0.f) {
-		speed += i_acc*S_ACCELERATION*dt;
-	} else {
-		if(speed > 0.1f) {
-			speed -= FRICTION;
-		} else if(speed < -0.1f) {
-			speed += FRICTION;
-		} else {
-			speed = 0.f;
-		}
+	dir += i_turn*S_TURNSPEED*dt;
+
+	speed += i_acc*S_ACCELERATION*dt;
+	if(speed > 0) {
+		speed -= FRICTION*dt;
+	} else if (speed < 0) {
+		speed += FRICTION*dt;
 	}
-
-	// Clamp speed to topspeed
 	if(speed > S_TOPSPEED) { speed = S_TOPSPEED; }
-	else if(speed < -S_TOPSPEED) { speed = -S_TOPSPEED; }
-
-	turndir = core::clamp(turndir*0.96f + i_turn*S_TURNSPEED*speed/32.f*dt,-S_MAXTURN,S_MAXTURN);
-
-	dir += turndir*dt;
 
 	pos.X += cos(dir)*speed*dt;
 	pos.Z += sin(dir)*speed*dt;
@@ -61,7 +51,6 @@ void Racer::setCameraBehind(scene::ICameraSceneNode* camera) {
 	nz = pos.Z-16.f*sin(dir);
 	camera->setPosition(core::vector3df(nx,16.f,nz));
 	camera->setTarget(core::vector3df(pos.X,pos.Y+8.f,pos.Z));
-	std::cout << camera->getRotation().Y << std::endl;
 }
 
 void Racer::updateInput(bool* keystates, f32 dt) { }

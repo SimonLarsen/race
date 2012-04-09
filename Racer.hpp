@@ -6,8 +6,7 @@ using namespace irr;
 #include <irrlicht/irrMath.h>
 #include <iostream>
 
-// TODO: Get from terrain in case of ice or something
-#define FRICTION 0.06f
+#define FRICTION 0.3
 
 class Racer {
 public:
@@ -21,11 +20,11 @@ protected:
 	bool isSolid;
 	scene::ISceneNode* node;
 	core::vector3df pos;
-	f32 speed, dir, turndir;
+	f32 speed, xforce, zforce, dir;
 	f32 i_acc, i_turn; // Input parameters, set by subclasses
 
 	//stats
-	f32 S_TURNSPEED, S_ACCELERATION, S_TOPSPEED, S_MAXTURN;
+	f32 S_TURNSPEED, S_ACCELERATION, S_TOPSPEED;
 };
 
 #endif

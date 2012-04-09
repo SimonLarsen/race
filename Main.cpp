@@ -2,8 +2,8 @@
 
 Main::Main() {
 	// TODO: Load from lua file
-	WIDTH = 1024;
-	HEIGHT = 768;
+	WIDTH = 800;
+	HEIGHT = 600;
 	// reset all keystates
 	for(int i = 0; i < KEY_KEY_CODES_COUNT; i++) {
 		keystate[i] = false;
