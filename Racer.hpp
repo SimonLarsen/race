@@ -14,16 +14,18 @@ public:
 	scene::ISceneNode* create(IrrlichtDevice* device, f32 x, f32 z, f32 dir);
 	void updateLogic(f32 dt);
 	void update(bool* keystates, f32 dt);
+	void setCameraBehind(scene::ICameraSceneNode* camera);
 	virtual void updateInput(bool* keystates, f32 dt);
 
 protected:
 	bool isSolid;
 	scene::ISceneNode* node;
 	core::vector3df pos;
-	f32 speed, turn, dir, acc;
+	f32 speed, dir, turndir;
+	f32 i_acc, i_turn; // Input parameters, set by subclasses
 
 	//stats
-	f32 S_TURNSPEED, S_ACCELERATION, S_TOPSPEED;
+	f32 S_TURNSPEED, S_ACCELERATION, S_TOPSPEED, S_MAXTURN;
 };
 
 #endif

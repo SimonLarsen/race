@@ -5,7 +5,7 @@ OBJECTS=Main.o Map.o Racer.o HumanRacer.o
 race: $(OBJECTS)
 	$(GXX) $(OBJECTS) $(LDLIBS) -o race
 
-Main.cpp: Main.hpp Map.hpp
+Main.cpp: Main.hpp Map.hpp Racer.hpp HumanRacer.hpp
 
 Map.cpp: Map.hpp
 

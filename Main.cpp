@@ -22,6 +22,7 @@ void Main::loop() {
 		lastTime = now;
 
 		pl.update(keystate,dt);
+		pl.setCameraBehind(camera);
 
 		driver->beginScene();
 			driver->setRenderTarget(rt);
@@ -34,6 +35,7 @@ void Main::loop() {
 }
 
 bool Main::init() {
+	// Create Irrlicht device
 	device = createDevice(video::EDT_OPENGL, core::dimension2du(WIDTH,HEIGHT));
 	device->setEventReceiver(this);
 	device->setWindowCaption(L"Race!");
@@ -44,12 +46,14 @@ bool Main::init() {
 	driver->setTextureCreationFlag(video::ETCF_CREATE_MIP_MAPS, false);
 	smgr = device->getSceneManager();
 
+	// Create low-res render target
 	rt = driver->addRenderTargetTexture(core::dimension2du(256,256), "RTT1");
 
 	map.load("maps/purple");
 	map.createScene(device);
 
-	camera = smgr->addCameraSceneNodeFPS();
+	camera = smgr->addCameraSceneNode();
+	camera->bindTargetAndRotation(true);
 	camera->setPosition(core::vector3df(512.f,10.f,512.f));
 
 	return true;

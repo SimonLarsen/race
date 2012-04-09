@@ -44,4 +44,35 @@ void Map::createScene(IrrlichtDevice* device) {
 		driver->getTexture(skybox_textures[4])
 	);
 	skybox->setMaterialFlag(video::EMF_BILINEAR_FILTER, false);
+
+	// random decoration stuff for testing
+	addDecorationBillboard(device,762.f,1024.f-312.f,EDT_PURPLE_ROCK);
+	addDecorationBillboard(device,872.f,1024.f-366.f,EDT_PURPLE_ROCK);
+	addDecorationBillboard(device,778.f,1024.f-774.f,EDT_PURPLE_ROCK);
+	addDecorationBillboard(device,775.f,1024.f-602.f,EDT_PURPLE_ROCK);
+	addDecorationBillboard(device,265.f,1024.f-700.f,EDT_PURPLE_ROCK);
+
+	addDecorationBillboard(device,734.f,1024.f-411.f,EDT_TENTACLE);
+}
+
+scene::IBillboardSceneNode* Map::addDecorationBillboard(IrrlichtDevice* device, f32 x, f32 z, E_DECORATION_TYPE type) {
+	scene::ISceneManager* smgr = device->getSceneManager();
+	video::IVideoDriver* driver = device->getVideoDriver();
+
+	scene::IBillboardSceneNode* node = smgr->addBillboardSceneNode();
+
+	node->setMaterialFlag(video::EMF_LIGHTING, false);
+	node->setMaterialFlag(video::EMF_BILINEAR_FILTER, false);
+	node->setMaterialType(video::EMT_TRANSPARENT_ALPHA_CHANNEL_REF);
+
+	core::dimension2df dimension(32.f,32.f);
+	core::vector3df position(x,16.f,z);
+	switch(type) {
+		case EDT_TENTACLE: node->setMaterialTexture(0, driver->getTexture("data/textures/tentacle.png")); break;
+		case EDT_PURPLE_ROCK: node->setMaterialTexture(0, driver->getTexture("data/textures/purple_rock.png")); break;
+	}
+	node->setSize(dimension);
+	node->setPosition(position);
+
+	return node;
 }
