@@ -1,9 +1,11 @@
 #include "Main.hpp"
 
 Main::Main() {
-	// TODO: Load from lua file
+	// Set default values in case xml reading fails
 	WIDTH = 800;
 	HEIGHT = 600;
+	// Read settings from "config.xml"
+	readConfigXML();
 	// reset all keystates
 	for(int i = 0; i < KEY_KEY_CODES_COUNT; i++) {
 		keystate[i] = false;
@@ -76,6 +78,25 @@ int Main::run() {
 	}
 
 	loop();
+	device->drop();
+}
+
+void Main::readConfigXML() {
+	io::IrrXMLReader* xml = io::createIrrXMLReader("config.xml");
+	while(xml && xml->read()) {
+		switch(xml->getNodeType()) {
+			case io::EXN_ELEMENT:
+				// <screen width="" height="" /> tag
+				if(strcmp("screen", xml->getNodeName()) == 0) {
+					int newWIDTH = xml->getAttributeValueAsInt("width");
+					int newHEIGHT = xml->getAttributeValueAsInt("height");
+					if(newWIDTH > 0) { WIDTH = newWIDTH; }
+					if(newHEIGHT > 0) { HEIGHT = newHEIGHT; }
+				}
+				break;
+		}
+	}
+	delete xml;
 }
 
 int main(int argc, char** argv) {

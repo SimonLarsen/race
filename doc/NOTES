@@ -1,3 +1,5 @@
 * Translation coords i texture transform matrix er index 8 og 9
 * Bør Racer turning være parametrisk i speed?
 * Alle Y -> Z koordiner fra 2D -> 3D skal omregnes (x,y) = (x,1024-y) pga. omvendt Y-akse i Irrlicht
+
+* Læs maps og spillere fra XML filer

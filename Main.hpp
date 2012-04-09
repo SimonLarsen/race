@@ -4,6 +4,7 @@
 #include <iostream>
 #include <irrlicht/irrlicht.h>
 using namespace irr;
+#include <irrlicht/irrXML.h>
 
 #include "Map.hpp"
 #include "Racer.hpp"
@@ -18,6 +19,7 @@ public:
 private:
 	bool init();
 	void loop();
+	void readConfigXML();
 
 	int WIDTH, HEIGHT;
 	bool keystate[KEY_KEY_CODES_COUNT];
