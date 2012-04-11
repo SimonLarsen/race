@@ -9,6 +9,7 @@ using namespace irr;
 #include "Map.hpp"
 #include "Racer.hpp"
 #include "HumanRacer.hpp"
+#include "CPURacer.hpp"
 
 class Main : public IEventReceiver {
 public:

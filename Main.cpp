@@ -6,6 +6,8 @@ Main::Main() {
 	HEIGHT = 600;
 	// Read settings from "config.xml"
 	readConfigXML();
+	// Read racer stats
+	Racer::readStatsXML();
 	// reset all keystates
 	for(int i = 0; i < KEY_KEY_CODES_COUNT; i++) {
 		keystate[i] = false;
@@ -16,7 +18,7 @@ void Main::loop() {
 	u32 lastTime = device->getTimer()->getTime();
 
 	HumanRacer pl;
-	pl.create(device, 584.f,1024-110.f,0.f);
+	pl.create(device, 584.f,1024-110.f,0.f,0);
 
 	while(device->run()) {
 		const u32 now = device->getTimer()->getTime();
