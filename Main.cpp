@@ -42,6 +42,7 @@ bool Main::init() {
 	// Create Irrlicht device
 	device = createDevice(video::EDT_OPENGL, core::dimension2du(WIDTH,HEIGHT));
 	device->setEventReceiver(this);
+	//device->setResizable(false);
 	device->setWindowCaption(L"Race!");
 	if(device == NULL)
 		return false;

@@ -23,8 +23,6 @@ const char* const PLAYER_FILES[8] = {
 	"data/racers/moonman.xml",
 };
 
-static f32 RACER_STATS[NUM_PLAYERS][4];
-
 class Racer {
 public:
 	scene::ISceneNode* create(IrrlichtDevice* device, f32 x, f32 z, f32 dir, int racer);
@@ -42,6 +40,7 @@ protected:
 	f32 i_acc, i_turn; // Input parameters, set by subclasses
 
 	//stats
+	static f32 RACER_STATS[NUM_PLAYERS][4];
 	f32 S_ACCELERATION, S_TOPSPEED, S_TURNSPEED;
 	// {acceleration, topspeed, turnspeed, ?}
 };

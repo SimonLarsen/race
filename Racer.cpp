@@ -1,5 +1,7 @@
 #include "Racer.hpp"
 
+f32 Racer::RACER_STATS[NUM_PLAYERS][4];
+
 scene::ISceneNode* Racer::create(IrrlichtDevice* device, f32 _x, f32 _z, f32 _dir, int racer) {
 	pos.X = _x;
 	pos.Y = 4.f;
@@ -66,9 +68,6 @@ void Racer::readStatsXML() {
 						f32 acceleration = xml->getAttributeValueAsFloat("acceleration");
 						f32 topspeed = xml->getAttributeValueAsFloat("topspeed");
 						f32 turnspeed = xml->getAttributeValueAsFloat("turnspeed");
-						std::cout << acceleration << std::endl;
-						std::cout << topspeed << std::endl;
-						std::cout << turnspeed << std::endl;
 
 						if(acceleration > 0) { RACER_STATS[i][0] = acceleration; }
 						if(topspeed > 0) { RACER_STATS[i][1] = topspeed; }
